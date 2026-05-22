@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const services = [
   {
@@ -22,26 +23,28 @@ const services = [
 ];
 
 export default function ServicesSection() {
+  const { getValue } = useSiteContent();
+
   return (
     <section className="py-20 bg-[#0d0d0d]">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div className="flex flex-col lg:flex-row gap-10 items-center mb-14">
           <div className="flex-1">
             <span className="text-[#C8A545] text-xs font-semibold uppercase tracking-widest">
-              Nuestros Servicios
+              {getValue("services", "services_badge", "Nuestros Servicios")}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 leading-tight max-w-md">
-              Todo Lo Que Tu Camión Necesita en Un Solo Lugar
+              {getValue("services", "services_title", "Todo Lo Que Tu Camión Necesita en Un Solo Lugar")}
             </h2>
             <p className="text-gray-400 mt-4 text-sm leading-relaxed max-w-sm">
-              Desde auditorías DOT hasta reprogramación de computadoras y cancelación de DPF. Cubrimos diagnóstico, transmisiones, motor, frenos y mecánica general.
+              {getValue("services", "services_subtitle", "Desde auditorías DOT hasta reprogramación de computadoras y cancelación de DPF. Cubrimos diagnóstico, transmisiones, motor, frenos y mecánica general.")}
             </p>
             <div className="inline-flex items-center gap-3 bg-[#1a1a1a] border border-[#C8A545]/30 text-white px-6 py-3.5 rounded-xl mt-7">
               <i className="ri-emotion-happy-line text-[#C8A545] text-xl"></i>
               <div>
-                <span className="text-2xl font-extrabold text-[#C8A545]">500+</span>
-                <span className="text-white font-semibold text-sm ml-2">Camiones Reparados</span>
-                <p className="text-white/50 text-xs mt-0.5">De vuelta en la carretera funcionando</p>
+                <span className="text-2xl font-extrabold text-[#C8A545]">{getValue("services", "services_stat_value", "500+")}</span>
+                <span className="text-white font-semibold text-sm ml-2">{getValue("services", "services_stat_label", "Camiones Reparados")}</span>
+                <p className="text-white/50 text-xs mt-0.5">{getValue("services", "services_stat_desc", "De vuelta en la carretera funcionando")}</p>
               </div>
             </div>
           </div>
@@ -63,7 +66,7 @@ export default function ServicesSection() {
                 <div>
                   <h4 className="text-white font-bold text-xs leading-tight">Auditorías Garantizadas</h4>
                   <p className="text-gray-400 text-[11px] mt-0.5 leading-relaxed">
-                    Nos quedamos contigo hasta que tu camión pase la auditoría DOT. Sin excusas.
+                    Nos quedamos contigo hasta que pases la auditoría DOT. Sin excusas.
                   </p>
                 </div>
               </div>

@@ -4,6 +4,9 @@ import Home from "../pages/home/page";
 import AboutPage from "../pages/about/page";
 import ServicesPage from "../pages/services/page";
 import ContactPage from "../pages/contact/page";
+import LoginPage from "../pages/login/page";
+import AdminPage from "../pages/admin/page";
+import ProtectedRoute from "../components/feature/ProtectedRoute";
 
 const routes: RouteObject[] = [
   {
@@ -21,6 +24,18 @@ const routes: RouteObject[] = [
   {
     path: "/contact",
     element: <ContactPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute>
+        <AdminPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "*",

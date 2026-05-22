@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import HeroImageSlider from "./HeroImageSlider";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export default function HeroSection() {
+  const { getValue } = useSiteContent();
   const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success">("idle");
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -26,14 +28,14 @@ export default function HeroSection() {
           <div className="flex-1 w-full">
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span className="inline-flex items-center gap-2 bg-[#C8A545]/15 border border-[#C8A545]/40 text-[#C8A545] text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full">
-                <i className="ri-map-pin-line"></i> San Bernardino, CA
+                <i className="ri-map-pin-line"></i> {getValue("hero", "hero_badge", "San Bernardino, CA")}
               </span>
             </div>
             <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6">
-              Especialistas en Reparación de Camiones.
+              {getValue("hero", "hero_title", "Especialistas en Reparación de Camiones.")}
             </h1>
             <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-xl">
-              Más de 15 años de experiencia. Diagnóstico por computadora, DPF, auditorías DOT, transmisiones automáticas y estándar, y mecánica general para camiones y coches en San Bernardino, California.
+              {getValue("hero", "hero_subtitle", "Más de 15 años de experiencia. Diagnóstico por computadora, DPF, auditorías DOT, transmisiones automáticas y estándar, y mecánica general para camiones y coches en San Bernardino, California.")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
@@ -41,7 +43,7 @@ export default function HeroSection() {
                 to="/contact"
                 className="whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black font-bold px-8 py-4 rounded-full text-base transition-all duration-200 cursor-pointer text-center"
               >
-                Solicita tu Cotización Hoy
+                {getValue("hero", "hero_cta_text", "Solicita tu Cotización Hoy")}
               </Link>
               <a
                 href="https://api.whatsapp.com/send/?phone=15127333148&text&type=phone_number&app_absent=0"
@@ -49,25 +51,25 @@ export default function HeroSection() {
                 rel="noopener noreferrer"
                 className="whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black font-bold px-8 py-4 rounded-full text-base transition-all duration-200 cursor-pointer text-center flex items-center justify-center gap-2"
               >
-                (512) 733-3148
+                {getValue("hero", "hero_phone", "(512) 733-3148")}
               </a>
             </div>
             <div className="flex flex-wrap gap-8">
               <div>
-                <p className="text-3xl font-extrabold text-[#C8A545]">15+</p>
-                <p className="text-gray-400 text-sm mt-0.5">Años de Experiencia</p>
+                <p className="text-3xl font-extrabold text-[#C8A545]">{getValue("hero", "hero_stat1_value", "15+")}</p>
+                <p className="text-gray-400 text-sm mt-0.5">{getValue("hero", "hero_stat1_label", "Años de Experiencia")}</p>
               </div>
               <div>
-                <p className="text-3xl font-extrabold text-[#C8A545]">500+</p>
-                <p className="text-gray-400 text-sm mt-0.5">Camiones Reparados</p>
+                <p className="text-3xl font-extrabold text-[#C8A545]">{getValue("hero", "hero_stat2_value", "500+")}</p>
+                <p className="text-gray-400 text-sm mt-0.5">{getValue("hero", "hero_stat2_label", "Camiones Reparados")}</p>
               </div>
               <div>
-                <p className="text-3xl font-extrabold text-[#C8A545]">100%</p>
-                <p className="text-gray-400 text-sm mt-0.5">Auditorías Aprobadas</p>
+                <p className="text-3xl font-extrabold text-[#C8A545]">{getValue("hero", "hero_stat3_value", "100%")}</p>
+                <p className="text-gray-400 text-sm mt-0.5">{getValue("hero", "hero_stat3_label", "Auditorías Aprobadas")}</p>
               </div>
               <div>
-                <p className="text-3xl font-extrabold text-[#C8A545]">24/7</p>
-                <p className="text-gray-400 text-sm mt-0.5">Disponibilidad</p>
+                <p className="text-3xl font-extrabold text-[#C8A545]">{getValue("hero", "hero_stat4_value", "24/7")}</p>
+                <p className="text-gray-400 text-sm mt-0.5">{getValue("hero", "hero_stat4_label", "Disponibilidad")}</p>
               </div>
             </div>
           </div>

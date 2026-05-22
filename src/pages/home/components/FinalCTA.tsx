@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export default function FinalCTA() {
+  const { getValue } = useSiteContent();
+
   return (
     <section className="relative py-24 overflow-hidden mb-16">
       <div className="absolute inset-0">
@@ -13,20 +16,20 @@ export default function FinalCTA() {
       </div>
       <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-6 text-center">
         <span className="text-[#C8A545] text-sm font-semibold uppercase tracking-widest">
-          ¿Tu Camión Necesita Ayuda?
+          {getValue("finalcta", "finalcta_badge", "¿Tu Camión Necesita Ayuda?")}
         </span>
         <h2 className="text-4xl md:text-5xl font-extrabold text-white mt-3 leading-tight">
-          Lo Devolvemos a la Carretera
+          {getValue("finalcta", "finalcta_title", "Lo Devolvemos a la Carretera")}
         </h2>
         <p className="text-gray-300 mt-5 text-lg leading-relaxed">
-          Desde auditorías DOT y diagnóstico por computadora hasta reparaciones de motor y DPF — estamos aquí para solucionarlo. Contáctanos hoy en San Bernardino, CA.
+          {getValue("finalcta", "finalcta_subtitle", "Desde auditorías DOT y diagnóstico por computadora hasta reparaciones de motor y DPF — estamos aquí para solucionarlo. Contáctanos hoy en San Bernardino, CA.")}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Link
             to="/contact"
             className="whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black font-bold px-10 py-4 rounded-full text-base transition-colors cursor-pointer text-center"
           >
-            Solicita tu Cotización
+            {getValue("finalcta", "finalcta_button", "Solicita tu Cotización")}
           </Link>
           <a
             href="https://api.whatsapp.com/send/?phone=15127333148&text&type=phone_number&app_absent=0"
@@ -34,7 +37,7 @@ export default function FinalCTA() {
             rel="noopener noreferrer"
             className="whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black font-bold px-10 py-4 rounded-full text-base transition-colors cursor-pointer flex items-center justify-center gap-2 text-center"
           >
-            (512) 733-3148
+            {getValue("finalcta", "finalcta_phone", "(512) 733-3148")}
           </a>
         </div>
       </div>

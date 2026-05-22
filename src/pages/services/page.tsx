@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/feature/Navbar";
 import Footer from "@/components/feature/Footer";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const topServices = [
   {
@@ -64,13 +65,13 @@ const bottomServices = [
     icon: "ri-flashlight-line",
     title: "Sistemas Eléctricos y Aire Acondicionado",
     desc: "Diagnóstico y reparación de sistemas eléctricos, cableado, baterías, alternadores y compresores de aire acondicionado para camiones pesados.",
-    image: "https://storage.readdy-site.link/project_files/e1ee72c3-9d55-4c39-a83d-fc5c0cc164bf/5786fbb9-05d1-4fee-8bba-e70b8bf87820_WhatsApp-Image-2026-05-19-at-9.46.16-PM.jpeg?v=1d610cd878693926a8ba01513f494d5b",
+    image: "https://storage.readdy-site.link/project_files/e1ee72c3-9d55-4c39-a83d-fc5c0cc164bf/50b173ed-941e-4568-b988-f900d940abfd_WhatsApp-Image-2026-05-20-at-11.05.58-PM-1.jpeg?v=aae1dcefc3d0b8e21100412adee6aaab",
   },
   {
     icon: "ri-exchange-line",
     title: "Suspensión y Dirección Hidráulica",
     desc: "Reparación completa de suspensiones neumáticas y mecánicas, dirección hidráulica, ballestas, amortiguadores y sistemas de levante.",
-    image: "https://storage.readdy-site.link/project_files/e1ee72c3-9d55-4c39-a83d-fc5c0cc164bf/4c2cb224-38ed-423d-ae85-6d604f3a93c2_WhatsApp-Image-2026-05-19-at-9.14.18-PM.jpeg?v=a9886371504940232aad812dee48b827",
+    image: "https://storage.readdy-site.link/project_files/e1ee72c3-9d55-4c39-a83d-fc5c0cc164bf/072f5714-d4e7-444f-be52-392307ed383c_WhatsApp-Image-2026-05-20-at-11.06.06-PM-4.jpeg?v=9af15a26a7c1521fad06a10a0063f767",
   },
   {
     icon: "ri-drop-line",
@@ -87,7 +88,7 @@ function ServiceCard({ icon, title, desc, image }: {
   image: string;
 }) {
   return (
-    <div className="group bg-[#111111] overflow-hidden transition-all duration-300">
+    <div className="group bg-[#111111] overflow-hidden transition-all duration-300 relative">
       <div className="relative w-full h-52 overflow-hidden">
         <img
           alt={title}
@@ -96,6 +97,15 @@ function ServiceCard({ icon, title, desc, image }: {
         />
         <div className="absolute top-3 right-3 w-10 h-10 flex items-center justify-center bg-[#C8A545] rounded-full z-10">
           <i className={`${icon} text-black text-lg`}></i>
+        </div>
+        {/* Hover overlay with CTA */}
+        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+          <Link
+            to={`/contact?service=${encodeURIComponent(title)}`}
+            className="whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black font-bold px-6 py-3 rounded-full text-sm transition-all duration-200 cursor-pointer flex items-center gap-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-300"
+          >
+            Solicitar Servicio <i className="ri-arrow-right-line"></i>
+          </Link>
         </div>
       </div>
       <div className="px-4 py-5">
@@ -110,6 +120,7 @@ function ServiceCard({ icon, title, desc, image }: {
 }
 
 export default function ServicesPage() {
+  const { getValue } = useSiteContent();
   return (
     <div className="min-h-screen bg-[#0d0d0d]">
       <Navbar />
@@ -124,7 +135,7 @@ export default function ServicesPage() {
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="relative z-10 bg-[#111111]/80 border border-[#C8A545]/40 rounded-lg px-10 py-4">
             <h1 className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-widest">
-              Nuestros Servicios
+              {getValue("services", "services_page_title", "Nuestros Servicios")}
             </h1>
           </div>
         </section>

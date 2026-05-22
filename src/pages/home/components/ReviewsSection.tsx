@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { GoogleLogo, GoogleStars } from "@/components/feature/GoogleReviewsBadge";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const reviews = [
   {
@@ -27,6 +28,7 @@ const reviews = [
 
 export default function ReviewsSection() {
   const [page, setPage] = useState(1);
+  const { getValue } = useSiteContent();
 
   return (
     <section className="bg-[#0d0d0d] py-16 md:py-20">
@@ -44,10 +46,10 @@ export default function ReviewsSection() {
           </div>
 
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
-            Lo Que Dicen Nuestros Clientes
+            {getValue("reviews", "reviews_title", "Lo Que Dicen Nuestros Clientes")}
           </h2>
           <p className="text-gray-400 text-sm md:text-base max-w-xl mx-auto mb-6">
-            Opiniones reales de transportistas y dueños de camiones en San Bernardino y California. Nos enorgullece nuestra reputación.
+            {getValue("reviews", "reviews_subtitle", "Opiniones reales de transportistas y dueños de camiones en San Bernardino y California. Nos enorgullece nuestra reputación.")}
           </p>
           <div className="inline-flex items-center gap-4 bg-[#111111] border border-white/10 rounded-2xl px-6 py-4">
             <div className="flex items-center gap-1">
@@ -58,12 +60,12 @@ export default function ReviewsSection() {
               <i className="text-xl ri-star-fill text-yellow-400"></i>
             </div>
             <div className="text-left">
-              <p className="text-white font-extrabold text-2xl">5.0</p>
+              <p className="text-white font-extrabold text-2xl">{getValue("reviews", "reviews_rating", "5.0")}</p>
               <p className="text-gray-500 text-xs">de 5 estrellas</p>
             </div>
             <div className="w-px h-10 bg-white/10"></div>
             <div className="text-left">
-              <p className="text-white font-bold text-lg">30+</p>
+              <p className="text-white font-bold text-lg">{getValue("reviews", "reviews_count", "30+")}</p>
               <p className="text-gray-500 text-xs">reseñas verificadas</p>
             </div>
             <div className="hidden sm:flex items-center gap-2 ml-2">

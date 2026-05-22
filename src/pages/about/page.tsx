@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/feature/Navbar";
 import Footer from "@/components/feature/Footer";
+import { useSiteContent } from "@/hooks/useSiteContent";
+import { useValues } from "@/hooks/useValues";
 
 const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=15127333148&text&type=phone_number&app_absent=0";
 
@@ -9,15 +11,6 @@ const stats = [
   { num: "15", suffix: "+", label: "Años de", sublabel: "Experiencia" },
   { num: "500", suffix: "+", label: "Camiones", sublabel: "Reparados" },
   { num: "100", suffix: "%", label: "Satisfacción", sublabel: "Garantizada" },
-];
-
-const valuesList = [
-  { icon: "ri-price-tag-3-line", label: "Precios Competitivos y Honestos" },
-  { icon: "ri-tools-line", label: "Servicio Profesional" },
-  { icon: "ri-shield-check-line", label: "Calidad Garantizada" },
-  { icon: "ri-hand-heart-line", label: "Negocio Familiar de Confianza" },
-  { icon: "ri-translate-2", label: "Equipo Bilingüe (Español e Inglés)" },
-  { icon: "ri-truck-line", label: "Todas las Marcas y Modelos" },
 ];
 
 const faqs = [
@@ -55,6 +48,19 @@ const faqs = [
 
 export default function AboutPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const { getValue } = useSiteContent();
+  const { values, loading: valuesLoading } = useValues();
+
+  const fallbackValues = [
+    { id: 1, title: "Precios Competitivos y Honestos", icon: "ri-price-tag-3-line", description: "Ofrecemos presupuestos claros sin cargos ocultos." },
+    { id: 2, title: "Servicio Profesional", icon: "ri-tools-line", description: "Mecánicos certificados con herramientas de diagnóstico de última generación." },
+    { id: 3, title: "Calidad Garantizada", icon: "ri-shield-check-line", description: "Pruebas exhaustivas antes de cada entrega." },
+    { id: 4, title: "Negocio Familiar de Confianza", icon: "ri-hand-heart-line", description: "Más de 15 años sirviendo a transportistas." },
+    { id: 5, title: "Equipo Bilingüe", icon: "ri-translate-2", description: "Servimos en español e inglés." },
+    { id: 6, title: "Todas las Marcas y Modelos", icon: "ri-truck-line", description: "Reparamos cualquier marca y modelo de camión." },
+  ];
+
+  const displayValues = values.length > 0 ? values : fallbackValues;
 
   return (
     <div className="min-h-screen bg-[#0d0d0d]">
@@ -161,11 +167,10 @@ export default function AboutPage() {
           </div>
           <div className="relative z-10 max-w-3xl mx-auto px-4 md:px-6 text-center">
             <h2 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
-              Obtén Tu Cotización de Reparación Hoy
+              {getValue("cta", "cta_title", "Obtén Tu Cotización de Reparación Hoy")}
             </h2>
             <p className="text-gray-300 mt-4 text-sm leading-relaxed">
-              Obtén asesoría personalizada de nuestros especialistas en reparación de camiones sin compromiso.
-              Hablemos sobre la reparación de tu vehículo hoy.
+              {getValue("cta", "cta_subtitle", "Obtén asesoría personalizada de nuestros especialistas en reparación de camiones sin compromiso. Hablemos sobre la reparación de tu vehículo hoy.")}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
               <Link
@@ -193,14 +198,13 @@ export default function AboutPage() {
               {/* Left: FAQ Accordion */}
               <div className="w-full lg:w-1/2">
                 <span className="text-[#C8A545] text-[11px] font-bold uppercase tracking-[0.2em]">
-                  Preguntas Frecuentes
+                  {getValue("faqs", "faq_badge", "Preguntas Frecuentes")}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 leading-tight">
-                  Preguntas Comunes Sobre Plascencia Road Services
+                  {getValue("faqs", "faq_title", "Preguntas Comunes Sobre Plascencia Road Services")}
                 </h2>
                 <p className="text-gray-400 mt-3 text-sm leading-relaxed">
-                  Sabemos que reparar tu camión genera muchas preguntas.
-                  Aquí están algunas de las más comunes que nuestros clientes hacen antes de empezar.
+                  {getValue("faqs", "faq_subtitle", "Sabemos que reparar tu camión genera muchas preguntas. Aquí están algunas de las más comunes que nuestros clientes hacen antes de empezar.")}
                 </p>
 
                 <div className="mt-8 space-y-3">
@@ -291,15 +295,20 @@ export default function AboutPage() {
                 </p>
 
                 <div className="mt-8 space-y-4">
-                  {valuesList.map((v) => (
+                  {displayValues.map((v) => (
                     <div
-                      key={v.label}
+                      key={v.id}
                       className="flex items-center gap-4 py-3 border-b border-white/5"
                     >
                       <div className="w-10 h-10 flex items-center justify-center bg-[#C8A545]/15 rounded-full shrink-0">
                         <i className={`${v.icon} text-[#C8A545] text-lg`}></i>
                       </div>
-                      <span className="text-white text-sm font-semibold">{v.label}</span>
+                      <div className="flex-1 min-w-0">
+                        <span className="text-white text-sm font-semibold block">{v.title}</span>
+                        {v.description && (
+                          <span className="text-gray-500 text-xs block mt-0.5">{v.description}</span>
+                        )}
+                      </div>
                       <i className="ri-check-line text-[#C8A545] text-lg ml-auto shrink-0"></i>
                     </div>
                   ))}

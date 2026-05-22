@@ -1,10 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/feature/Navbar";
 import Footer from "@/components/feature/Footer";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const [searchParams] = useSearchParams();
+  const preselectedService = searchParams.get("service") || "";
+  const { getValue } = useSiteContent();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +50,8 @@ export default function ContactPage() {
               <div>
                 <p className="text-[#C8A545] text-[11px] font-bold uppercase tracking-widest"
                 >Llámanos Directamente</p>
-                <a href="tel:+19513345236" className="text-white text-sm font-bold hover:text-[#C8A545] transition-colors cursor-pointer block mt-0.5"
-                >(951) 334-5236</a>
+                <a href={`tel:${getValue("contact", "contact_phone", "(951) 334-5236").replace(/\D/g, "")}`} className="text-white text-sm font-bold hover:text-[#C8A545] transition-colors cursor-pointer block mt-0.5"
+                >{getValue("contact", "contact_phone", "(951) 334-5236")}</a>
                 <p className="text-gray-500 text-[11px] mt-0.5"
                 >Hablamos Español e Inglés</p>
               </div>
@@ -64,8 +68,8 @@ export default function ContactPage() {
               <div>
                 <p className="text-[#C8A545] text-[11px] font-bold uppercase tracking-widest"
                 >Escríbenos</p>
-                <a href="mailto:Olgapla1981@gmail.com" className="text-white text-sm hover:text-[#C8A545] transition-colors cursor-pointer block mt-0.5"
-                >Olgapla1981@gmail.com</a>
+                <a href={`mailto:${getValue("contact", "contact_email", "Olgapla1981@gmail.com")}`} className="text-white text-sm hover:text-[#C8A545] transition-colors cursor-pointer block mt-0.5"
+                >{getValue("contact", "contact_email", "Olgapla1981@gmail.com")}</a>
               </div>
             </div>
 
@@ -115,9 +119,9 @@ export default function ContactPage() {
                 <p className="text-[#C8A545] text-[11px] font-bold uppercase tracking-widest"
                 >Nuestra Ubicación</p>
                 <p className="text-white text-sm font-bold mt-0.5"
-                >1566 Colorado Ave</p>
+                >{getValue("contact", "contact_address", "1566 Colorado Ave")}</p>
                 <p className="text-gray-400 text-xs"
-                >San Bernardino, CA 92411</p>
+                >{getValue("contact", "contact_city", "San Bernardino, CA 92411")}</p>
                 <a
                   href="https://maps.google.com/?q=1566+Colorado+Ave+San+Bernardino+CA+92411"
                   target="_blank"
@@ -296,7 +300,7 @@ export default function ContactPage() {
                           <select
                             name="serviceNeeded"
                             className="w-full bg-gray-50 border border-gray-200 text-[#111111] text-sm rounded-lg px-4 py-3 outline-none focus:border-[#C8A545] transition-all cursor-pointer"
-                            defaultValue=""
+                            defaultValue={preselectedService || ""}
                           >
                             <option value="" disabled
                             >Selecciona un Servicio</option>

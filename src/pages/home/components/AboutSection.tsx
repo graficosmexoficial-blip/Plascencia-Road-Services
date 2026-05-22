@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const badges = [
   { icon: "ri-shield-check-line", label: "Licenciado y Asegurado" },
@@ -8,6 +9,8 @@ const badges = [
 ];
 
 export default function AboutSection() {
+  const { getValue } = useSiteContent();
+
   return (
     <section className="py-20 bg-[#111111] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -28,16 +31,16 @@ export default function AboutSection() {
 
           <div className="w-full lg:w-[45%]">
             <span className="text-[#C8A545] text-xs font-semibold uppercase tracking-widest">
-              Sobre Nosotros
+              {getValue("about", "about_badge", "Sobre Nosotros")}
             </span>
             <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3 leading-tight">
-              Especialistas de Confianza en Reparación de Camiones en California
+              {getValue("about", "about_title", "Especialistas de Confianza en Reparación de Camiones en California")}
             </h2>
             <p className="text-gray-400 mt-5 text-base leading-relaxed">
-              Plascencia Road Services nació del sueño compartido de dos familias que decidieron unir fuerzas para crear algo más grande que un simple taller. Lo que comenzó como una conversación entre amigos apasionados por los camiones y la mecánica, se convirtió en un negocio familiar dedicado a servir a los transportistas de California.
+              {getValue("about", "about_para1", "Plascencia Road Services nació del sueño compartido de dos familias que decidieron unir fuerzas para crear algo más grande que un simple taller. Lo que comenzó como una conversación entre amigos apasionados por los camiones y la mecánica, se convirtió en un negocio familiar dedicado a servir a los transportistas de California.")}
             </p>
             <p className="text-gray-400 mt-3 text-base leading-relaxed">
-              Con más de 15 años de experiencia, nos especializamos en diagnóstico por computadora, reprogramación de ECU, cancelación y reinstalación de sistemas DPF, transmisiones automáticas y estándar, auditorías DOT con inspecciones de 90 días y anuales, y mecánica general. Nos quedamos en el lugar hasta que tu camión pase la auditoría.
+              {getValue("about", "about_para2", "Con más de 15 años de experiencia, nos especializamos en diagnóstico por computadora, reprogramación de ECU, cancelación y reinstalación de sistemas DPF, transmisiones automáticas y estándar, auditorías DOT con inspecciones de 90 días y anuales, y mecánica general. Nos quedamos en el lugar hasta que tu camión pase la auditoría.")}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">

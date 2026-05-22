@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import LoginModal from "./LoginModal";
 
 const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=15127333148&text&type=phone_number&app_absent=0";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,9 +30,7 @@ export default function Navbar() {
   };
 
   return (
-    <header
-      className="fixed top-0 left-0 w-full z-50 bg-[#0d0d0d] shadow-lg"
-    >
+    <header className="fixed top-0 left-0 w-full z-50 bg-[#0d0d0d] shadow-lg">
       <div className="w-full">
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between h-28">
           <button onClick={handleLogoClick} className="flex items-center cursor-pointer">
@@ -57,24 +57,32 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black text-lg font-bold px-7 py-3.5 rounded-full transition-colors duration-200 cursor-pointer"
+              className="hidden md:flex items-center gap-2 whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black text-lg font-bold px-7 py-3.5 rounded-full transition-colors duration-200 cursor-pointer"
             >
+              <i className="ri-phone-line text-xl"></i>
               (512) 733-3148
             </a>
+            <button
+              onClick={() => setLoginOpen(true)}
+              className="flex items-center justify-center w-12 h-12 rounded-full border border-white/20 text-white hover:text-[#C8A545] hover:border-[#C8A545]/40 transition-all cursor-pointer"
+              aria-label="Owner Portal"
+              title="Owner Portal"
+            >
+              <i className="ri-user-line text-xl"></i>
+            </button>
+            <button
+              className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer text-white"
+              aria-label="Toggle menu"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              <i className="text-2xl ri-menu-line"></i>
+            </button>
           </div>
-
-          <button
-            className="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer text-white"
-            aria-label="Toggle menu"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            <i className="text-2xl ri-menu-line"></i>
-          </button>
         </div>
       </div>
 
@@ -101,11 +109,14 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 whitespace-nowrap bg-[#C8A545] hover:bg-[#B8963A] text-black text-lg font-bold px-7 py-3.5 rounded-full transition-colors duration-200 cursor-pointer w-fit mt-2"
             >
+              <i className="ri-phone-line text-xl"></i>
               (512) 733-3148
             </a>
           </nav>
         </div>
       )}
+
+      <LoginModal isOpen={loginOpen} onClose={() => setLoginOpen(false)} />
     </header>
   );
 }
